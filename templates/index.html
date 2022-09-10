@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Заявки {% endblock %}</h1>
+    {% for request in requests %}
+        <a href="{{ url_for('_request', request_id=request['id']) }}">
+            <h2>{{ request['user'] }}</h2>
+        </a>
+        <div id="buttons-form">
+            <form class="form-button" method="post">
+                <div class="form-group buttons">
+                    <input type="hidden" name="recieved"
+                           class=""
+                    ></input>
+                    <button type="submit" class="btn btn-primary">Заявка принята</button>
+                </div>
+            </form>
+            <form class="form-button" method="post">
+                <div class="form-group buttons">
+                    <input type="hidden" name="wip"
+                           class=""
+                    ></input>
+                    <button type="submit" class="btn btn-primary">Заказ в пути</button>
+                </div>
+            </form>
+            <form class="form-button" method="post">
+                <div class="form-group buttons">
+                    <input type="hidden" name="done"
+                           class=""
+                    ></input>
+                    <button type="submit" class="btn btn-primary">Заказ доставлен</button>
+                </div>
+            </form>
+        </div>
+        
+        <span class="badge badge-primary">{{ request['created'] }}</span>
+	    <span class="badge badge-primary">{{ request['content'] }}</span>
+        <span class="badge badge-primary">{{ request['status'] }}</span>
+
+
+        <hr>
+    {% endfor %}
+{% endblock %}

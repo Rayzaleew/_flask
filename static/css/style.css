@@ -1,0 +1,40 @@
+h1 {
+    border: 2px #eee solid;
+    color: brown;
+    text-align: center;
+    padding: 10px;
+}
+
+/* .nav-item {
+    display: flex;
+    justify-content: flex-start;
+} */
+
+#navbarNav {
+    justify-content: space-between;
+}
+
+.navbar {
+    background-color:antiquewhite;
+}
+
+#buttons-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.buttons {
+    display: flex;
+    margin-bottom: 0;
+}
+
+.form-button {
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+
+/* .login {
+    display: flex;
+    justify-content: flex-end;
+} */

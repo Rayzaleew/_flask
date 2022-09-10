@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% block title %} {{ request['user'] }} {% endblock %}</h2>
+    <span class="badge badge-primary">{{ request['created'] }}</span>
+    <span class="badge badge-primary">{{ request['status'] }}</span>
+    <p>{{ request['content'] }}</p>
+
+{% endblock %}
