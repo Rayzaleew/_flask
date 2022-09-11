@@ -3,34 +3,40 @@
 {% block content %}
     <h1>{% block title %} Заявки {% endblock %}</h1>
     {% for request in requests %}
+    {% if session['username'] %}
+    {% if request['user'] == session['username'] or session['username'] == "admin" %}
         <a href="{{ url_for('_request', request_id=request['id']) }}">
-            <h2>{{ request['user'] }}</h2>
+            <h2>{{ request['place'] }}</h2>
         </a>
+        
         <div id="buttons-form">
-            <form class="form-button" method="post">
+            {% if session['username'] == "admin" %}
+            <form class="form-button" action="/{{request['id']}}" method="post" >
                 <div class="form-group buttons">
-                    <input type="hidden" name="recieved"
-                           class=""
-                    ></input>
-                    <button type="submit" class="btn btn-primary">Заявка принята</button>
-                </div>
-            </form>
-            <form class="form-button" method="post">
-                <div class="form-group buttons">
-                    <input type="hidden" name="wip"
+                    <input type="hidden" name="status" value="В пути"
                            class=""
                     ></input>
                     <button type="submit" class="btn btn-primary">Заказ в пути</button>
                 </div>
             </form>
-            <form class="form-button" method="post">
+            <form class="form-button" action="/{{request['id']}}" method="post" >
                 <div class="form-group buttons">
-                    <input type="hidden" name="done"
+                    <input type="hidden" name="status" value = "Доставлено"
                            class=""
                     ></input>
                     <button type="submit" class="btn btn-primary">Заказ доставлен</button>
                 </div>
             </form>
+            {% else %}
+            <form class="form-button" action= "/{{request['id']}}/feedback" method="get">
+                <div class="form-group buttons">
+                    <input type="hidden" name="recieved"
+                           class=""
+                    ></input>
+                    <button type="submit" class="btn btn-primary">Ошибка в заказе?</button>
+                </div>
+            </form>
+            {% endif %}
         </div>
         
         <span class="badge badge-primary">{{ request['created'] }}</span>
@@ -39,5 +45,7 @@
 
 
         <hr>
+    {% endif %}
+    {% endif %}
     {% endfor %}
 {% endblock %}

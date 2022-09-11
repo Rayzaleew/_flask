@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Обратная связь {% endblock %}</h1>
+    {% for feed in feedback %}
+    {% for request in requests %}
+    {% if feed['request_id'] == request['id'] %}
+    
+    <a href="/{{request['id']}}">
+        <h2>{{ request['place'] }}</h2>
+    </a>
+    <blockquote class="blockquote">
+        <p class="mb-0"><b>Сообщение: </b>{{feed['feedback_text']}}</p>
+        <p class="mb-0"><b>Имя пользователя:</b> {{feed['username']}}</p>
+        <p class="mb-0"><b>Номер телефона пользователя:</b> {{feed['phone_number']}}</p>
+    </blockquote>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+{% endblock %}

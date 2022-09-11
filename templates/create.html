@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Create a New Request {% endblock %}</h1>
+<h1>{% block title %} Новая заявка {% endblock %}</h1>
 
-<form method="post">
+<form class = "form-group form-request" method="post">
     <div class="form-group">
-        <label for="user">Пункт назначения</label>
-        <select name = "user" id="Place">
+        <label for="place">Пункт назначения</label>
+        <select name = "place" id="Place">
 
-            <option value=”Студенческая”>Филиал на Студенческой</option>
+            <option>Филиал на Студенческой</option>
             
-            <option value=”Ленина”>Филиал на Ленина</option>
+            <option>Филиал на Ленина</option>
             
-            <option value=”Маркса”>Филиал на Маркса</option>
+            <option>Филиал на Маркса</option>
             
             </select>
         <!-- <input type="text" name="user"
@@ -20,13 +20,29 @@
                value="{{ request.form['user'] }}"></input> -->
     </div>
 
+    {% for product in products %}
     <div class="form-group">
-        <label for="Content">Содержимое заявки</label>
-        <textarea name="content" placeholder="Продукты"
-                  class="form-control">{{ request.form['content'] }}</textarea>
+        
+        <span name="content.{{product['id']}}">{{product['name']}}</span>
+        <div class="input-number">
+            <div class="input-number">
+                <div class="input-number__minus">-</div>
+                <input name = "number.{{product['id']}}" class="input-number__input" type="text" pattern="^[0-9]+$" value="0">
+                <div class="input-number__plus">+</div>
+            </div>
+        </div>
+        <!-- <input class= "" type="number" name = "number.{{product['id']}}" value = "0"></input> -->
     </div>
-    <div class="form-group">
+    {% endfor %}
+    <div>
+        <span>Комментарий к заказу:</span>
+        <input class= "form-control" type="text" name="comment"></input>
+    </div>
+    <div class="form-group button-container">
         <button type="submit" class="btn btn-primary">Отправить</button>
     </div>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src ="{{ url_for('static', filename= 'js/code.js') }}"></script>
 {% endblock %}

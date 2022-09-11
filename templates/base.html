@@ -22,15 +22,27 @@
                 <a class="nav-link" href="#">О сервисе</a>
             </li>
             <li class="nav-item">
+              {% if session['username'] != "admin" and session['username'] %}
               <a class="nav-link" href="{{url_for('create')}}">Новая заявка</a>
+              {% elif session['username'] == "admin"  %}
+              <a class="nav-link" href="{{url_for('feedbox')}}">Обратная связь</a>
+              {% endif %}
           </li>
             </ul>
             <ul class="navbar-nav login">
               <li class="nav-item login" >
-                <a class="nav-link" href="#">Admin</a>
+                {% if session['username'] %}
+                <a class="nav-link" href="#">{{session['username']}}</a>
+                {% else %}
+                <a class="nav-link" href="{{url_for('login')}}">Войти</a>
+                {% endif %}
             </li>
             <li class="nav-item login" >
-              <a class="nav-link" href="#">Выйти</a>
+              {% if session['username'] %}
+                <a class="nav-link" href="{{url_for('logout')}}">Выйти</a>
+                {% else %}
+                <a class="nav-link" href="{{url_for('registration')}}">Зарегистрироваться</a>
+                {% endif %}
           </li>
             </ul>
         </div>
