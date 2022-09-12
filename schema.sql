@@ -1,6 +1,6 @@
 drop table requests;
 --drop table products;
-drop table users;
+--drop table users;
 drop table feedback;
 
 create table requests (
@@ -20,13 +20,13 @@ create table requests (
 -- 	number integer CHECK(number > 0)
 -- );
 
-create table users (
-	id integer primary key autoincrement,
-	username text not null unique,
-	password_hash text not null,
-	user_role boolean not null,
-	phone_number text not null
-);
+-- create table users (
+-- 	id integer primary key autoincrement,
+-- 	username text not null unique,
+-- 	password_hash text not null,
+-- 	user_role boolean not null,
+-- 	phone_number text not null
+-- );
 
 create table feedback (
 	id integer primary key autoincrement,

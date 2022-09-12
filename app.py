@@ -18,6 +18,8 @@ def get_request(request_id):
     return request
 
 app = Flask(__name__)
+
+
 #app.config['SECRET_KEY'] = 'abcd12345'
 
 @app.route('/')
@@ -26,6 +28,7 @@ def index():
 	requests = conn.execute('SELECT * FROM requests ORDER BY created desc').fetchall()
 	conn.close()
 	return render_template('index.html', requests = requests)
+
 
 @app.route('/<int:request_id>', methods= ('GET', 'POST'))
 def _request(request_id):
@@ -58,9 +61,9 @@ def feedback(request_id):
 @app.route('/feedbox')
 def feedbox():
     conn = get_db_connection()
-    requests = conn.execute('SELECT * FROM requests ').fetchall()
+    requests = conn.execute('SELECT * FROM requests ORDER BY created desc').fetchall()
     #users = conn.execute('SELECT * FROM users ').fetchall()
-    feedback = conn.execute('SELECT * FROM feedback INNER JOIN users ON feedback.user_id = users.id').fetchall()
+    feedback = conn.execute('SELECT * FROM feedback INNER JOIN users ON feedback.user_id = users.id ORDER BY feedback.id desc').fetchall()
     conn.close()
     return render_template('feedbox.html', feedback=feedback, requests=requests)
 
@@ -151,3 +154,6 @@ def logout():
 
 # set the secret key.  keep this really secret:
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port= 4567)

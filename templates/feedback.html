@@ -3,9 +3,9 @@
 {% block content %}
     <h2>{% block title %} Обратная связь {% endblock %}</h2>
     <p>Содержимое заявки: {{ request['content'] }}</p>
-    <form class="form-group button-container" method="post">
+    <form class="form-group " method="post">
         <input type="text" class="form-control" name="feedback_text"></input>
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="submit" class="btn btn-primary button-container">Отправить</button>
         
     </form>
     
